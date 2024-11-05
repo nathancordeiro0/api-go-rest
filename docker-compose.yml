@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PW}
+      - POSTGRES_DB=${DB_NAME}      
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./migration/docker-database-initial.sql:/docker-entrypoint-initdb.d/docker-database-initial.sql   
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "nathancribeiro13@hotmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "Nt201201*"
+    ports:
+      - "54321:80"
+    depends_on:
+      - postgres
